@@ -1,0 +1,20 @@
+.spin {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid rgb(87, 85, 85);
+  border-bottom-color: #291528;
+  animation-name: spin;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
