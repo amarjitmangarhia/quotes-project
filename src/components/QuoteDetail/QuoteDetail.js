@@ -2,9 +2,13 @@ import React, { Fragment } from "react";
 import classes from "./QuoteDetail.module.css";
 import { Link, useParams } from "react-router-dom";
 
-const QuoteDetail = ({ quotes }) => {
+const QuoteDetail = ({ quotes, removeQuoteFromLocalStorage }) => {
   const params = useParams();
   const quote = quotes.find((quote) => quote.id === params.quoteId);
+
+  const removeQuoteHandler = () => {
+    removeQuoteFromLocalStorage(quote.id);
+  };
 
   if (!quote) {
     return;
@@ -18,8 +22,11 @@ const QuoteDetail = ({ quotes }) => {
           <div className={classes.author}>{quote.author}</div>
         </div>
         <div>
+          <button className={classes.deleteButton} onClick={removeQuoteHandler}>
+            Delete
+          </button>
           <Link to="/quotes">
-            <button>Back</button>
+            <button className={classes.backButton}>Back</button>
           </Link>
         </div>
       </div>

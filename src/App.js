@@ -2,20 +2,15 @@ import { Fragment, useEffect, useState } from "react";
 import "./App.css";
 import MainHeader from "./components/MainHeader/MainHeader";
 import AllQuotes from "./components/AllQuotes/AllQuotes";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Form from "./components/Form/Form";
 import QuoteDetail from "./components/QuoteDetail/QuoteDetail";
 import NotFound from "./components/NotFound/NotFound";
 
 const LOCAL_STORAGE_KEY = "quotes";
 function App() {
-  const [quotes, setQuotes] = useState([
-    // {
-    //   id: "a",
-    //   quoteText: "Learning React is Fun!",
-    //   author: "Amar",
-    // },
-  ]);
+  const navigate = useNavigate();
+  const [quotes, setQuotes] = useState([]);
 
   const TITLE = "Quotes App";
 
@@ -35,13 +30,29 @@ function App() {
     setQuotes(parseData);
   }, []);
 
-  const addToLocalStorage = (data) => {
-    const getData = localStorage.getItem(LOCAL_STORAGE_KEY);
-    const parseData = JSON.parse(getData);
-    const arr = [...parseData];
-    arr.push(data);
+  const addQuoteToLocalStorage = (data) => {
+    const getDataFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const parseData = JSON.parse(getDataFromLocalStorage);
+    const arrOfQuotes = [...parseData];
+    arrOfQuotes.push(data);
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(arr));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(arrOfQuotes));
+  };
+
+  const removeQuoteFromLocalStorage = (id) => {
+    const getDataFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const parseData = JSON.parse(getDataFromLocalStorage);
+
+    const filteredQuotesAfterRemovingMatched = parseData.filter(
+      (quote) => quote.id !== id
+    );
+
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify(filteredQuotesAfterRemovingMatched)
+    );
+    setQuotes(filteredQuotesAfterRemovingMatched);
+    navigate("/quotes");
   };
 
   return (
@@ -52,12 +63,20 @@ function App() {
         <Route path="/quotes" element={<AllQuotes quotes={quotes} />}></Route>
         <Route
           path="/quotes/:quoteId"
-          element={<QuoteDetail quotes={quotes} />}
+          element={
+            <QuoteDetail
+              quotes={quotes}
+              removeQuoteFromLocalStorage={removeQuoteFromLocalStorage}
+            />
+          }
         ></Route>
         <Route
           path="/addQuote"
           element={
-            <Form addToLocalStorage={addToLocalStorage} setQuotes={setQuotes} />
+            <Form
+              addToLocalStorage={addQuoteToLocalStorage}
+              setQuotes={setQuotes}
+            />
           }
         />
         <Route path="/404" element={<NotFound />} />

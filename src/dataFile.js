@@ -7,5 +7,3 @@ export function makeid() {
   }
   return result;
 }
-
-export let DUMMY_DATA = [];

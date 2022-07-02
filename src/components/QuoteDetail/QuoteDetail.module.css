@@ -5,7 +5,7 @@
   padding: 10px;
 }
 
-.quoteDetail button:hover {
+.backButton:hover {
   cursor: pointer;
   background-color: #2b232b;
 }
@@ -40,7 +40,7 @@
   border-bottom: 2px solid white;
 }
 
-.quoteDetail button {
+.backButton {
   padding: 10px;
   width: 6rem;
   margin: 10px 0;
@@ -50,6 +50,24 @@
   border-radius: 10px;
   font-size: 1rem;
   transition: 0.5s;
+}
+
+.deleteButton {
+  padding: 10px;
+  width: 6rem;
+  margin: 10px 0;
+  border: none;
+  background-color: #e5472f;
+  color: white;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: 0.5s;
+  margin: 0 10px;
+}
+
+.deleteButton:hover {
+  cursor: pointer;
+  background-color: #e86551;
 }
 
 /* @media screen and (max-width: 320px) {
