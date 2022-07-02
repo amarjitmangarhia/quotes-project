@@ -17,6 +17,13 @@ function App() {
     // },
   ]);
 
+  const TITLE = "Quotes App";
+
+  useEffect(() => {
+    document.title = TITLE;
+    console.log("i run");
+  }, [TITLE]);
+
   useEffect(() => {
     if (!localStorage.getItem(LOCAL_STORAGE_KEY)) {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
