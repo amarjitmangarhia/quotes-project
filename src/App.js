@@ -21,7 +21,6 @@ function App() {
 
   useEffect(() => {
     document.title = TITLE;
-    console.log("i run");
   }, [TITLE]);
 
   useEffect(() => {
